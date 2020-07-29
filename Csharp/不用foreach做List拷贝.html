@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>[C#]不用 foreach 做 List 拷贝 | Pengju.Li-音乐代码</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    
+    <meta name="description" content="大丈夫当朝游碧海而暮苍梧">
+    <link rel="preload" href="/assets/css/0.styles.06eaf845.css" as="style"><link rel="preload" href="/assets/js/app.3846faa5.js" as="script"><link rel="preload" href="/assets/js/3.a8777d4d.js" as="script"><link rel="preload" href="/assets/js/1.8ce65757.js" as="script"><link rel="preload" href="/assets/js/19.df3002be.js" as="script"><link rel="prefetch" href="/assets/js/10.7112d105.js"><link rel="prefetch" href="/assets/js/11.0a193fdd.js"><link rel="prefetch" href="/assets/js/12.3f1d0769.js"><link rel="prefetch" href="/assets/js/13.9b32f448.js"><link rel="prefetch" href="/assets/js/14.7eeae0bb.js"><link rel="prefetch" href="/assets/js/15.b09d0451.js"><link rel="prefetch" href="/assets/js/16.b2a096c8.js"><link rel="prefetch" href="/assets/js/17.be863404.js"><link rel="prefetch" href="/assets/js/18.e43a9d3e.js"><link rel="prefetch" href="/assets/js/20.58d2567b.js"><link rel="prefetch" href="/assets/js/21.84c2250c.js"><link rel="prefetch" href="/assets/js/22.33922fa2.js"><link rel="prefetch" href="/assets/js/23.249d53a6.js"><link rel="prefetch" href="/assets/js/24.cd7fee29.js"><link rel="prefetch" href="/assets/js/25.f46b65c9.js"><link rel="prefetch" href="/assets/js/26.ac81b7a7.js"><link rel="prefetch" href="/assets/js/27.f666fb93.js"><link rel="prefetch" href="/assets/js/28.498885af.js"><link rel="prefetch" href="/assets/js/29.5e6420fb.js"><link rel="prefetch" href="/assets/js/30.9cd0b035.js"><link rel="prefetch" href="/assets/js/31.910bac39.js"><link rel="prefetch" href="/assets/js/32.e4e55133.js"><link rel="prefetch" href="/assets/js/33.90b2b318.js"><link rel="prefetch" href="/assets/js/34.324795e3.js"><link rel="prefetch" href="/assets/js/35.e9722423.js"><link rel="prefetch" href="/assets/js/36.6a37b1df.js"><link rel="prefetch" href="/assets/js/37.cd4ca806.js"><link rel="prefetch" href="/assets/js/38.d07c7e20.js"><link rel="prefetch" href="/assets/js/39.1d84f78f.js"><link rel="prefetch" href="/assets/js/4.1d62f73b.js"><link rel="prefetch" href="/assets/js/40.389cdd85.js"><link rel="prefetch" href="/assets/js/41.bff99217.js"><link rel="prefetch" href="/assets/js/42.4d5b9a97.js"><link rel="prefetch" href="/assets/js/43.dc88db2f.js"><link rel="prefetch" href="/assets/js/44.48b7f41c.js"><link rel="prefetch" href="/assets/js/45.6b3663d6.js"><link rel="prefetch" href="/assets/js/46.63fce01c.js"><link rel="prefetch" href="/assets/js/5.e9443c5c.js"><link rel="prefetch" href="/assets/js/6.1e9e9797.js"><link rel="prefetch" href="/assets/js/7.2636e68f.js"><link rel="prefetch" href="/assets/js/8.74ff9ea3.js"><link rel="prefetch" href="/assets/js/9.eb1a95d3.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.06eaf845.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-dad8a512><div data-v-dad8a512><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-dad8a512 data-v-dad8a512><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-64685f0e data-v-dad8a512 data-v-dad8a512><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>Pengju.Li-音乐代码</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>Pengju.Li-音乐代码</span>
+            
+          <!---->
+          2020
+        </a></span></div></div> <div class="hide" data-v-dad8a512><header class="navbar" data-v-dad8a512><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Pengju.Li-音乐代码</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      技术积累
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/PatternDesign/" class="nav-link"><i class="iconfont undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/Linux/" class="nav-link"><i class="iconfont undefined"></i>
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/Mysql/" class="nav-link"><i class="iconfont undefined"></i>
+  Mysql
+</a></li><li class="dropdown-item"><h4>工具备份</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/Soft/" class="nav-link"><i class="iconfont undefined"></i>
+  善用佳软
+</a></li><li class="dropdown-subitem"><a href="/Web/" class="nav-link"><i class="iconfont undefined"></i>
+  网站备份
+</a></li><li class="dropdown-subitem"><a href="/Study/" class="nav-link"><i class="iconfont undefined"></i>
+  学习积累
+</a></li><li class="dropdown-subitem"><a href="/MacOSX/" class="nav-link"><i class="iconfont undefined"></i>
+  MacOSX
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      技术框架
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>技术点</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/Nodejs/" class="nav-link"><i class="iconfont undefined"></i>
+  Nodejs
+</a></li><li class="dropdown-subitem"><a href="/Eggjs/" class="nav-link"><i class="iconfont undefined"></i>
+  Eggjs
+</a></li><li class="dropdown-subitem"><a href="/Vue/" class="nav-link"><i class="iconfont undefined"></i>
+  Vue
+</a></li><li class="dropdown-subitem"><a href="/Uniapp/" class="nav-link"><i class="iconfont undefined"></i>
+  Uni-app
+</a></li></ul></li><li class="dropdown-item"><h4>应用开发</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/IOS/" class="nav-link"><i class="iconfont undefined"></i>
+  IOS
+</a></li><li class="dropdown-subitem"><a href="/Android/" class="nav-link"><i class="iconfont undefined"></i>
+  Android
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      语言算法
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Clang/" class="nav-link"><i class="iconfont undefined"></i>
+  C/C++
+</a></li><li class="dropdown-item"><!----> <a href="/Csharp/" class="nav-link router-link-active"><i class="iconfont undefined"></i>
+  C#
+</a></li><li class="dropdown-item"><!----> <a href="/Js/" class="nav-link"><i class="iconfont undefined"></i>
+  Ts/Js
+</a></li><li class="dropdown-item"><!----> <a href="/Dart/" class="nav-link"><i class="iconfont undefined"></i>
+  Dart/Flutter
+</a></li><li class="dropdown-item"><!----> <a href="/Lua/" class="nav-link"><i class="iconfont undefined"></i>
+  Lua
+</a></li><li class="dropdown-item"><!----> <a href="/Algorithm/" class="nav-link"><i class="iconfont undefined"></i>
+  算法
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      游戏开发
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Unity/" class="nav-link"><i class="iconfont undefined"></i>
+  Unity
+</a></li><li class="dropdown-item"><!----> <a href="/CocosCreator/" class="nav-link"><i class="iconfont undefined"></i>
+  CocosCreator
+</a></li><li class="dropdown-item"><!----> <a href="/GameDesign/" class="nav-link"><i class="iconfont undefined"></i>
+  游戏设计
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      我的
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></li><li class="dropdown-item"><!----> <a href="https://github.com/pengjugame" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="/AboutMe/" class="nav-link"><i class="iconfont undefined"></i>
+  关于我
+</a></li><li class="dropdown-item"><!----> <a href="/Writer/" class="nav-link"><i class="iconfont undefined"></i>
+  杂文随笔
+</a></li><li class="dropdown-item"><!----> <a href="/Thinks/" class="nav-link"><i class="iconfont undefined"></i>
+  发散思维
+</a></li><li class="dropdown-item"><!----> <a href="/Blog/" class="nav-link"><i class="iconfont undefined"></i>
+  博客搭建
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-dad8a512></div> <aside class="sidebar" data-v-dad8a512><div class="personal-info-wrapper" data-v-ca798c94 data-v-dad8a512><!----> <h3 class="name" data-v-ca798c94>
+    Pengju.Li-音乐代码
+  </h3> <div class="num" data-v-ca798c94><div data-v-ca798c94><h3 data-v-ca798c94>0</h3> <h6 data-v-ca798c94>Article</h6></div> <div data-v-ca798c94><h3 data-v-ca798c94>0</h3> <h6 data-v-ca798c94>Tag</h6></div></div> <hr data-v-ca798c94></div> <nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      技术积累
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/PatternDesign/" class="nav-link"><i class="iconfont undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/Linux/" class="nav-link"><i class="iconfont undefined"></i>
+  Linux
+</a></li><li class="dropdown-item"><!----> <a href="/Mysql/" class="nav-link"><i class="iconfont undefined"></i>
+  Mysql
+</a></li><li class="dropdown-item"><h4>工具备份</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/Soft/" class="nav-link"><i class="iconfont undefined"></i>
+  善用佳软
+</a></li><li class="dropdown-subitem"><a href="/Web/" class="nav-link"><i class="iconfont undefined"></i>
+  网站备份
+</a></li><li class="dropdown-subitem"><a href="/Study/" class="nav-link"><i class="iconfont undefined"></i>
+  学习积累
+</a></li><li class="dropdown-subitem"><a href="/MacOSX/" class="nav-link"><i class="iconfont undefined"></i>
+  MacOSX
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      技术框架
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>技术点</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/Nodejs/" class="nav-link"><i class="iconfont undefined"></i>
+  Nodejs
+</a></li><li class="dropdown-subitem"><a href="/Eggjs/" class="nav-link"><i class="iconfont undefined"></i>
+  Eggjs
+</a></li><li class="dropdown-subitem"><a href="/Vue/" class="nav-link"><i class="iconfont undefined"></i>
+  Vue
+</a></li><li class="dropdown-subitem"><a href="/Uniapp/" class="nav-link"><i class="iconfont undefined"></i>
+  Uni-app
+</a></li></ul></li><li class="dropdown-item"><h4>应用开发</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/IOS/" class="nav-link"><i class="iconfont undefined"></i>
+  IOS
+</a></li><li class="dropdown-subitem"><a href="/Android/" class="nav-link"><i class="iconfont undefined"></i>
+  Android
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      语言算法
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Clang/" class="nav-link"><i class="iconfont undefined"></i>
+  C/C++
+</a></li><li class="dropdown-item"><!----> <a href="/Csharp/" class="nav-link router-link-active"><i class="iconfont undefined"></i>
+  C#
+</a></li><li class="dropdown-item"><!----> <a href="/Js/" class="nav-link"><i class="iconfont undefined"></i>
+  Ts/Js
+</a></li><li class="dropdown-item"><!----> <a href="/Dart/" class="nav-link"><i class="iconfont undefined"></i>
+  Dart/Flutter
+</a></li><li class="dropdown-item"><!----> <a href="/Lua/" class="nav-link"><i class="iconfont undefined"></i>
+  Lua
+</a></li><li class="dropdown-item"><!----> <a href="/Algorithm/" class="nav-link"><i class="iconfont undefined"></i>
+  算法
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      游戏开发
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Unity/" class="nav-link"><i class="iconfont undefined"></i>
+  Unity
+</a></li><li class="dropdown-item"><!----> <a href="/CocosCreator/" class="nav-link"><i class="iconfont undefined"></i>
+  CocosCreator
+</a></li><li class="dropdown-item"><!----> <a href="/GameDesign/" class="nav-link"><i class="iconfont undefined"></i>
+  游戏设计
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      我的
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></li><li class="dropdown-item"><!----> <a href="https://github.com/pengjugame" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="/AboutMe/" class="nav-link"><i class="iconfont undefined"></i>
+  关于我
+</a></li><li class="dropdown-item"><!----> <a href="/Writer/" class="nav-link"><i class="iconfont undefined"></i>
+  杂文随笔
+</a></li><li class="dropdown-item"><!----> <a href="/Thinks/" class="nav-link"><i class="iconfont undefined"></i>
+  发散思维
+</a></li><li class="dropdown-item"><!----> <a href="/Blog/" class="nav-link"><i class="iconfont undefined"></i>
+  博客搭建
+</a></li></ul></div></div> <!----></nav> <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Csharp</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/Csharp/" aria-current="page" class="sidebar-link">C/C++</a></li><li><a href="/Csharp/不用foreach做List拷贝.html" class="active sidebar-link">[C#]不用 foreach 做 List 拷贝</a></li><li><a href="/Csharp/如何生成随机字母数字字符串.html" class="sidebar-link">/Csharp/如何生成随机字母数字字符串.html</a></li></ul></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-64685f0e data-v-dad8a512><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e></h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>Pengju.Li-音乐代码</span>
+            
+          <!---->
+          2020
+        </a></span></div></div> <div data-v-dad8a512><main class="page"><div class="page-title" style="display:none;"><h1>[C#]不用 foreach 做 List 拷贝</h1> <hr> <div data-v-aa64b9d0><i class="iconfont reco-account" data-v-aa64b9d0><span data-v-aa64b9d0>Pengju.Li-音乐代码</span></i> <!----> <!----> <!----></div></div> <div class="theme-reco-content content__default" style="display:none;"><h1 id="c-不用-foreach-做-list-拷贝"><a href="#c-不用-foreach-做-list-拷贝" class="header-anchor">#</a> [C#]不用 foreach 做 List 拷贝</h1> <p>How do I clone a generic list?</p> <p>How do I copy items from list to list without foreach?</p> <h2 id="_1-shadow-copy"><a href="#_1-shadow-copy" class="header-anchor">#</a> 1. Shadow Copy</h2> <h3 id="shadow-copy-call-tolist"><a href="#shadow-copy-call-tolist" class="header-anchor">#</a> Shadow Copy call .ToList()</h3> <div class="language-c# extra-class"><pre class="language-text"><code>&gt; var x = new List&lt;int&gt;() { 3, 4 };
+&gt; var y = x.ToList();
+&gt; x.Add(5)
+&gt; x
+List&lt;int&gt;(3) { 3, 4, 5 }
+&gt; y
+List&lt;int&gt;(2) { 3, 4 }
+</code></pre></div><h3 id="shadow-copy-use-new-ienumerable"><a href="#shadow-copy-use-new-ienumerable" class="header-anchor">#</a> Shadow Copy Use New IEnumerable</h3> <div class="language-c# extra-class"><pre class="language-text"><code>List&lt;T&gt; myList = ...;
+List&lt;T&gt; cloneOfMyList = new List&lt;T&gt;(myList);
+</code></pre></div><p>If you don't know the type before, you'll need a helper function:</p> <div class="language-C# extra-class"><pre class="language-text"><code>List&lt;T&gt; Clone&lt;T&gt;(IEnumerable&lt;T&gt; oldList)
+{
+    return newList = new List&lt;T&gt;(oldList);
+}
+</code></pre></div><p>The just:</p> <div class="language-C# extra-class"><pre class="language-text"><code>List&lt;string&gt; myNewList = Clone(myOldList);
+</code></pre></div><h3 id="shadow-copy-use-getrange"><a href="#shadow-copy-use-getrange" class="header-anchor">#</a> Shadow Copy Use GetRange</h3> <div class="language- extra-class"><pre class="language-text"><code>List&lt;int&gt; oldList = new List&lt;int&gt;( );
+// Populate oldList...
+
+List&lt;int&gt; newList = oldList.GetRange(0, oldList.Count);
+</code></pre></div><h3 id="shadow-copy-use-addrange"><a href="#shadow-copy-use-addrange" class="header-anchor">#</a> Shadow Copy Use AddRange</h3> <div class="language-c# extra-class"><pre class="language-text"><code>List&lt;int&gt; oldList = new List&lt;int&gt;( );
+List&lt;int&gt; newList =  new List&lt;int&gt;( );
+newList.AddRange(oldList);
+</code></pre></div><h3 id="shadow-copy-use-map"><a href="#shadow-copy-use-map" class="header-anchor">#</a> Shadow Copy Use Map</h3> <div class="language-c# extra-class"><pre class="language-text"><code>var List1= new List&lt;Entities1&gt;();
+var List2= new List&lt;Entities2&gt;();
+var List2 = List1.Select(p =&gt; new Entities2
+        {
+            EntityCode = p.EntityCode,
+            EntityId = p.EntityId,
+            EntityName = p.EntityName
+        }).ToList();
+</code></pre></div><p>...</p> <h2 id="_2-deep-copy"><a href="#_2-deep-copy" class="header-anchor">#</a> 2. Deep Copy</h2> <h3 id="deepcopy-with-binaryformatter"><a href="#deepcopy-with-binaryformatter" class="header-anchor">#</a> DeepCopy with BinaryFormatter</h3> <p>Your object requires to be <code>[Serializable()]</code>. The goal is to lose all references and build new ones.</p> <div class="language-C# extra-class"><pre class="language-text"><code>public static object DeepClone(object obj)
+{
+  object objResult = null;
+  using (MemoryStream  ms = new MemoryStream())
+  {
+    BinaryFormatter  bf =   new BinaryFormatter();
+    bf.Serialize(ms, obj);
+
+    ms.Position = 0;
+    objResult = bf.Deserialize(ms);
+  }
+  return objResult;
+}
+</code></pre></div><h3 id="deepcopy-implement-icloneable-or-use-copy-constructor"><a href="#deepcopy-implement-icloneable-or-use-copy-constructor" class="header-anchor">#</a> DeepCopy implement ICloneable or use copy-constructor</h3> <p>this is a very good method!</p> <p>If your elements are value types</p> <div class="language-c# extra-class"><pre class="language-text"><code>List&lt;YourType&gt; newList = new List&lt;YourType&gt;(oldList);
+</code></pre></div><p>However, if they are reference types and you want a deep copy (assuming your elements properly implement <code>ICloneable</code>), you could do something like this:</p> <div class="language-c# extra-class"><pre class="language-text"><code>List&lt;ICloneable&gt; oldList = new List&lt;ICloneable&gt;();
+List&lt;ICloneable&gt; newList = new List&lt;ICloneable&gt;(oldList.Count);
+
+oldList.ForEach((item) =&gt;
+    {
+        newList.Add((ICloneable)item.Clone());
+    });
+</code></pre></div><p>If your element type doesn't support <code>ICloneable</code> but does have a copy-constructor, you could do this instead:</p> <div class="language-c# extra-class"><pre class="language-text"><code>List&lt;YourType&gt; oldList = new List&lt;YourType&gt;();
+List&lt;YourType&gt; newList = new List&lt;YourType&gt;(oldList.Count);
+
+oldList.ForEach((item)=&gt;
+    {
+        newList.Add(new YourType(item));
+    });
+</code></pre></div><p>Personally, I would avoid <code>ICloneable</code> because of the need to guarantee a deep copy of all members. Instead, I'd suggest the copy-constructor or a factory method like <code>YourType.CopyFrom(YourType itemToCopy)</code> that returns a new instance of <code>YourType</code>.</p> <p>...</p> <h2 id="_3-some-demos"><a href="#_3-some-demos" class="header-anchor">#</a> 3. Some Demos</h2> <div class="language-c# extra-class"><pre class="language-text"><code>using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+
+namespace DemoDotNet
+{
+    public class CListToList
+    {
+        public CListToList()
+        {
+
+        }
+
+        public void Test()
+        {
+            List&lt;Item&gt; original = new List&lt;Item&gt;();
+            for (int i = 0; i &lt; 2; ++i)
+            {
+                Item item = new Item();
+                original.Add(item);
+            }
+
+            Console.WriteLine(&quot;-------==START==-----------&quot;);
+            PrintList(original);
+
+            //使用Linq的ToList
+            UseLinqToList(original);
+
+            //使用AddRange
+            UseAddRange(original);
+
+            //深拷贝方式，需要当前类型可序列化
+            UseCopyList(original);
+
+            //使用重新生成的方式，没啥用
+            UseSelectNew(original);
+        }
+
+        private void UseLinqToList(List&lt;Item&gt; original)
+        {
+            List&lt;Item&gt; copy = original.ToList();
+            foreach (var v in copy)
+            {
+                v.a++;
+                v.b++;
+            }
+
+            Console.WriteLine(&quot;-------&gt;UseLinqToList--------&quot;);
+            PrintList(original);
+            Console.WriteLine(&quot;&gt;&gt;&gt;&quot;);
+            PrintList(copy);
+        }
+
+        private void UseAddRange(List&lt;Item&gt; original)
+        {
+            List&lt;Item&gt; copy = new List&lt;Item&gt;();
+            copy.AddRange(original);
+
+            foreach (var v in copy)
+            {
+                v.a++;
+                v.b++;
+            }
+
+            Console.WriteLine(&quot;-------&gt;UseAddRange--------&quot;);
+            PrintList(original);
+            Console.WriteLine(&quot;&gt;&gt;&gt;&quot;);
+            PrintList(copy);
+        }
+
+        private void UseCopyList(List&lt;Item&gt; original)
+        {
+            List&lt;Item&gt; copy = original.CopyList();
+
+            foreach (var v in copy)
+            {
+                v.a++;
+                v.b++;
+            }
+
+            Console.WriteLine(&quot;-------&gt;UseCopyList--------&quot;);
+            PrintList(original);
+            Console.WriteLine(&quot;&gt;&gt;&gt;&quot;);
+            PrintList(copy);
+        }
+
+        private void UseSelectNew(List&lt;Item&gt; original)
+        {
+            List&lt;Item&gt; copy = original.Select(p =&gt; new Item()).ToList();
+
+            Console.WriteLine(&quot;-------&gt;UseSelectNew--------&quot;);
+            PrintList(original);
+            Console.WriteLine(&quot;&gt;&gt;&gt;&quot;);
+            PrintList(copy);
+        }
+
+        private void PrintList(List&lt;Item&gt; list)
+        {
+
+            foreach (var v in list)
+            {
+                Console.WriteLine($&quot;{v.a}, {v.b}&quot;);
+            }
+        }
+
+        [System.Serializable]
+        public class Item
+        {
+            public int a;
+            public int b;
+        }
+    }
+
+    public static class ListEx
+    {
+        //This method will create a copy of your list  but your  type should be serializable.
+        public static List&lt;T&gt; CopyList&lt;T&gt;(this List&lt;T&gt; lst)
+        {
+            List&lt;T&gt; lstCopy = new List&lt;T&gt;();
+            foreach (var item in lst)
+            {
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    formatter.Serialize(stream, item);
+                    stream.Position = 0;
+                    lstCopy.Add((T)formatter.Deserialize(stream));
+                }
+            }
+            return lstCopy;
+        }
+    }
+}
+</code></pre></div></div> <footer class="page-edit" style="display:none;"><!----> <!----></footer> <!----> <!----> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-40a3448a><li class="level-2" data-v-40a3448a><a href="/Csharp/%E4%B8%8D%E7%94%A8foreach%E5%81%9AList%E6%8B%B7%E8%B4%9D.html#_1-shadow-copy" class="sidebar-link" data-v-40a3448a>1. Shadow Copy</a></li><li class="level-3" data-v-40a3448a><a href="/Csharp/%E4%B8%8D%E7%94%A8foreach%E5%81%9AList%E6%8B%B7%E8%B4%9D.html#shadow-copy-call-tolist" class="sidebar-link" data-v-40a3448a>Shadow Copy call .ToList()</a></li><li class="level-3" data-v-40a3448a><a href="/Csharp/%E4%B8%8D%E7%94%A8foreach%E5%81%9AList%E6%8B%B7%E8%B4%9D.html#shadow-copy-use-new-ienumerable" class="sidebar-link" data-v-40a3448a>Shadow Copy Use New IEnumerable</a></li><li class="level-3" data-v-40a3448a><a href="/Csharp/%E4%B8%8D%E7%94%A8foreach%E5%81%9AList%E6%8B%B7%E8%B4%9D.html#shadow-copy-use-getrange" class="sidebar-link" data-v-40a3448a>Shadow Copy Use GetRange</a></li><li class="level-3" data-v-40a3448a><a href="/Csharp/%E4%B8%8D%E7%94%A8foreach%E5%81%9AList%E6%8B%B7%E8%B4%9D.html#shadow-copy-use-addrange" class="sidebar-link" data-v-40a3448a>Shadow Copy Use AddRange</a></li><li class="level-3" data-v-40a3448a><a href="/Csharp/%E4%B8%8D%E7%94%A8foreach%E5%81%9AList%E6%8B%B7%E8%B4%9D.html#shadow-copy-use-map" class="sidebar-link" data-v-40a3448a>Shadow Copy Use Map</a></li><li class="level-2" data-v-40a3448a><a href="/Csharp/%E4%B8%8D%E7%94%A8foreach%E5%81%9AList%E6%8B%B7%E8%B4%9D.html#_2-deep-copy" class="sidebar-link" data-v-40a3448a>2. Deep Copy</a></li><li class="level-3" data-v-40a3448a><a href="/Csharp/%E4%B8%8D%E7%94%A8foreach%E5%81%9AList%E6%8B%B7%E8%B4%9D.html#deepcopy-with-binaryformatter" class="sidebar-link" data-v-40a3448a>DeepCopy with BinaryFormatter</a></li><li class="level-3" data-v-40a3448a><a href="/Csharp/%E4%B8%8D%E7%94%A8foreach%E5%81%9AList%E6%8B%B7%E8%B4%9D.html#deepcopy-implement-icloneable-or-use-copy-constructor" class="sidebar-link" data-v-40a3448a>DeepCopy implement ICloneable or use copy-constructor</a></li><li class="level-2" data-v-40a3448a><a href="/Csharp/%E4%B8%8D%E7%94%A8foreach%E5%81%9AList%E6%8B%B7%E8%B4%9D.html#_3-some-demos" class="sidebar-link" data-v-40a3448a>3. Some Demos</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-6f76602d data-v-6f76602d><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-6f76602d><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-6f76602d></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-6f76602d></path></svg></div></div></div>
+    <script src="/assets/js/app.3846faa5.js" defer></script><script src="/assets/js/3.a8777d4d.js" defer></script><script src="/assets/js/1.8ce65757.js" defer></script><script src="/assets/js/19.df3002be.js" defer></script>
+  </body>
+</html>
